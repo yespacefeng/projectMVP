@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 function App() {
+  const [user, setUser] = useState('Ye Feng');
+
   return (
     <div id='main'>
-      Hello World
+      <h1>Hello {user}</h1>
     </div>
   );
 }
