@@ -1,3 +1,88 @@
+:root {
+  --main-color: #D2E0EF;
+  --sub-color1: #85BCFF;
+  --sub-color2: #535C65;
+  --text-color: #24272B;
+}
 #app, body{
+  background-color: var(--main-color);
+  color: var(--text-color);
   margin: 0 auto;
+  font-family: Lato, sans-serif;
+}
+
+/* Header */
+#header{
+  background-color: var(--sub-color1);
+  height: 125px;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+.bank-name{
+  font-size: 42px;
+  font-weight: 900;
+  font-style: italic;
+  text-decoration: underline;
+  margin: 0 auto;
+}
+#nav-container{
+  position: absolute;
+  right: 10px;
+  bottom: 10px
+}
+.nav {
+  display: inline-block;
+  margin: 0 10px;
+}
+a, a:visited{
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+/* main */
+/* home-page */
+#home-page{
+  height: 300px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  text-align: center;
+}
+
+/* loging */
+#login, #signup{
+  display: flex;
+  justify-content: center;
+}
+#login-form, #signup-form{
+  height: 300px;
+  margin: 0 auto;
+}
+input, label{
+  margin: 5px 0;
+}
+.button-container{
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-column-gap: 10%;
+}
+#login-btn{
+  margin: 5px auto;
+}
+
+/* footer */
+#footer{
+  height: 150px;
+  text-align: center;
+  justify-content: center;
+}
+#footer p{
+  font-size: 10px;
+}
+.footer-links{
+  font-size: 12px;
+  display: inline-block;
+  bottom: 5px;
+  margin: 0 5px;
 }
