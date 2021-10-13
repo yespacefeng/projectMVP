@@ -1,7 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const passport = require('passport');
+const db = require('./database');
+const router = require('./routes.js');
 
 const port = process.env.PORT || 3000;
 
@@ -10,8 +11,7 @@ app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.post('/login', passport.authenticate('local', { successRedirect: '/',
-                                                    failureRedirect: '/login' }))
+app.use('/', router);
 
 app.listen(port, (err,something) => {
   console.log(`Server running on port ${port}`);

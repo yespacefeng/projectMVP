@@ -1,48 +1,69 @@
-DROP DATABASE IF EXISTS bank;
-CREATE DATABASE bank;
+DROP DATABASE IF EXISTS hackersbank;
+CREATE DATABASE hackersbank;
 
-\c bank;
+\c hackersbank;
 
-CREATE TABLE members {
-  member_number SERIAL PRIMARY KEY,
-  lastName VARCHAR(255),
-  firstName VARCHAR(255),
+CREATE TABLE members (
+  id SERIAL PRIMARY KEY,
+  firstname VARCHAR(255),
+  lastname VARCHAR(255),
   address VARCHAR(255),
   city VARCHAR(255),
   state VARCHAR(2),
   zip_code INTEGER
-}
+);
 
-CREATE TABLE savings_account {
+CREATE TABLE savings (
   account_number SERIAL PRIMARY KEY,
-  member_number INTEGER,
-  total_balance INTEGER,
-  avilable_balance INTEGER
+  member_id INTEGER,
+  balance DECIMAL,
   CONSTRAINT fk_members
-    FOREIGN KEY (member_number)
-      REFERENCES members(member_number)
-}
+    FOREIGN KEY (member_id)
+      REFERENCES members(id)
+);
 
-CREATE TABLE checking_account {
+CREATE TABLE checking (
   account_number SERIAL PRIMARY KEY,
-  member_number INTEGER,
-  avilable_balance INTEGER
+  member_id INTEGER,
+  balance DECIMAL,
   CONSTRAINT fk_members
-    FOREIGN KEY (member_number)
-      REFERENCES members(member_number)
-}
+    FOREIGN KEY (member_id)
+      REFERENCES members(id)
+);
 
-COPY members(member_number,lastname,firstname,address,city,state,zip_code)
-FROM '/Users/yespacefeng/Desktop/HackReactor/projectMVP/server/database/CSV_files/members.csv'
+CREATE TABLE transactions (
+  id SERIAL PRIMARY KEY,
+  member_id INTEGER,
+  account_type VARCHAR(255),
+  description VARCHAR(255),
+  withdraw BOOLEAN,
+  amount DECIMAL,
+  CONSTRAINT fk_members
+    FOREIGN KEY (member_id)
+      REFERENCES members(id)
+);
+
+COPY members(id,lastname,firstname,address,city,state,zip_code)
+FROM '/Users/yespacefeng/Desktop/HackReactor/projectMVP/server/database/CSV_files/Hackers Banks - members.csv'
 DELIMITER ','
 CSV HEADER;
 
-COPY savings_account(account_number,member_number,total_balance,avilable_balance)
-FROM '/Users/yespacefeng/Desktop/HackReactor/projectMVP/server/database/CSV_files/savings_account.csv'
+COPY savings(account_number,member_id,balance)
+FROM '/Users/yespacefeng/Desktop/HackReactor/projectMVP/server/database/CSV_files/Hackers Banks - savings_account.csv'
 DELIMITER ','
 CSV HEADER;
 
-COPY checking_account(account_number,member_number,avilable_balance)
-FROM '/Users/yespacefeng/Desktop/HackReactor/projectMVP/server/database/CSV_files/savings_account.csv'
+COPY checking(account_number,member_id,balance)
+FROM '/Users/yespacefeng/Desktop/HackReactor/projectMVP/server/database/CSV_files/Hackers Banks - checking_account.csv'
 DELIMITER ','
 CSV HEADER;
+
+COPY transactions(id,member_id,account_type,description,withdraw,amount)
+FROM '/Users/yespacefeng/Desktop/HackReactor/projectMVP/server/database/CSV_files/Hackers Banks - transactions.csv'
+DELIMITER ','
+CSV HEADER;
+
+SELECT setval('members_id_seq', (SELECT MAX(id) FROM members));
+SELECT setval('savings_account_number_seq', (SELECT MAX(account_number) FROM savings));
+SELECT setval('checking_account_number_seq', (SELECT MAX(account_number) FROM checking));
+SELECT setval('transactions_id_seq', (SELECT MAX(id) FROM transactions));

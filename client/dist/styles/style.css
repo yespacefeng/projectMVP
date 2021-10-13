@@ -41,11 +41,60 @@ a, a:visited{
 }
 
 /* main */
+#main{
+  margin: 5px 0;
+}
 /* home-page */
 #home-page{
-  height: 300px;
   display: grid;
   grid-template-columns: 50% 50%;
+}
+#home-page h2{
+  text-align: center;
+}
+#welcome-container{
+  width: 90%;
+  margin: 0 auto;
+}
+#welcome-container h3{
+  margin: 5px 0 0 0;
+}
+#welcome-container h4{
+  margin: 5px 0;
+}
+#recent-transaction{
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin: 0 5px;
+}
+#welcome-container p{
+  margin: 0;
+  text-align: center;
+}
+#spending-chart-container{
+  height: 450px;
+  width: 90%;
+  border: 2px solid black;
+  margin: 0 auto;
+}
+
+/* activities */
+.select{
+  width: 200px;
+  height: 100px;
+  margin: 0 auto;
+}
+.transaction-entry{
+  display: grid;
+  grid-template-columns: 50% 25% 25%;
+}
+.description{
+  margin-left: 5%;
+}
+.account{
+  text-align: center;
+}
+.amount{
   text-align: center;
 }
 
