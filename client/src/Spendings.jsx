@@ -5,17 +5,28 @@ class Spendings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      transactions: ['spendings', ...props.transactions]
+      transactions: props.transactions
     };
-    console.log(props);
   }
 
   renderChart() {
-    console.log(this.state.transactions);
+    let withdraw = ['withdraw'];
+    let deposit = ['deposit'];
+    for (let i = 0; i < this.state.transactions.length; i++) {
+      let currentTransaction = this.state.transactions[i];
+      if (currentTransaction.account_type === 'checking') {
+        if (currentTransaction.withdraw) {
+          withdraw.push(-currentTransaction.amount);
+        } else {
+          deposit.push(currentTransaction.amount);
+        }
+      }
+    }
+    console.log(withdraw);
     c3.generate({
       bindto: '#chart',
       data: {
-        columns: [this.state.transactions]
+        columns: [withdraw, deposit]
       }
     });
   }
